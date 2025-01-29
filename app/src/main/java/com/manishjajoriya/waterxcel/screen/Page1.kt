@@ -1,4 +1,4 @@
-package com.manishjajoriya.waterxcel.Screens
+package com.manishjajoriya.waterxcel.screens
 
 
 import androidx.compose.foundation.Image
@@ -33,7 +33,7 @@ import com.manishjajoriya.waterxcel.R
 
 
 @Composable
-fun Page1(modifier: Modifier = Modifier) {
+fun Page1(modifier: Modifier = Modifier, navigateFunction:() -> Unit) {
 
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
@@ -68,7 +68,7 @@ fun Page1(modifier: Modifier = Modifier) {
 
             Row() {
                 Button(
-                    onClick = {},
+                    onClick = navigateFunction,
                     modifier = Modifier
                         .width((screenWidth * 0.4).dp)
                         .height((screenHeight * 0.2).dp)
