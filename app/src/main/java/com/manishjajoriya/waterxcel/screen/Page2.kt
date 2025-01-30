@@ -4,10 +4,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -34,6 +38,24 @@ fun Page2(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Button(
+                onClick = {
+                    navigateFunctionTo3()
+                },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text("Sign up")
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Divider(modifier = Modifier.weight(1f), thickness = 1.dp)
+                Text(" Or ", modifier = Modifier.padding(horizontal = 8.dp))
+                Divider(modifier = Modifier.weight(1f), thickness = 1.dp)
+            }
+
             Icon(Icons.Filled.Person, contentDescription = "Citizens", modifier = Modifier.size(48.dp))
 
             Text("Login", style = MaterialTheme.typography.headlineLarge)
@@ -60,17 +82,18 @@ fun Page2(
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                 singleLine = true,
-                visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation()
+                visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+                trailingIcon = {
+                    IconButton(onClick = { showPassword = !showPassword }) {
+                        Icon(
+                            imageVector = if (showPassword) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                            contentDescription = if (showPassword) "Hide password" else "Show password"
+                        )
+                    }
+                }
             )
 
             // Show Password Checkbox
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Checkbox(
-                    checked = showPassword,
-                    onCheckedChange = { showPassword = it }
-                )
-                Text("Show Password")
-            }
 
             // Error message
             if (errorMessage.isNotEmpty()) {
@@ -83,17 +106,6 @@ fun Page2(
             }
 
             Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = {
-                    navigateFunctionTo3()
-                },
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text("Sign up")
-            }
-
-            Text("Or")
 
             // Login Button
             Button(
@@ -126,7 +138,7 @@ fun Page2(
                 Text("Keep me logged in")
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
             // Forgot Password Link
             TextButton(onClick = {
@@ -135,7 +147,27 @@ fun Page2(
                 Text("Forgot Password?")
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Admin Login? ")
+                TextButton(
+                    onClick = {
+                        // Handle admin login click
+                    },
+                    contentPadding = PaddingValues(0.dp) // Removes extra padding
+                ) {
+                    Text(
+                        "Click Here",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = Color(0xFF0077EE),
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
+            }
+
+
 
             // Help Link
             TextButton(onClick = {

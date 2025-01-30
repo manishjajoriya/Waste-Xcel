@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.manishjajoriya.waterxcel.screen.Base
 import com.manishjajoriya.waterxcel.screen.Page1
 import com.manishjajoriya.waterxcel.screens.Page2
 import com.manishjajoriya.waterxcel.screens.Page3
@@ -57,7 +58,14 @@ fun NavigationGraph(modifier: Modifier = Modifier) {
         }
 
         composable("page4") {
-            Page4(modifier = Modifier) { }
+            Page4(
+                modifier = modifier,
+                navigateFunction = {}
+            )
+        }
+
+        composable("MyAccount") {
+            Base(modifier = Modifier) {  }
         }
     }
 

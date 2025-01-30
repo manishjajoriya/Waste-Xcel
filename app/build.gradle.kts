@@ -44,7 +44,7 @@ dependencies {
     val nav_version = "2.8.5"
     // other
     implementation ("androidx.compose.ui:ui:1.4.0") // Check for latest version
-    implementation ("androidx.compose.material:material:1.4.0") // For Material Design components like BottomNavigation
+    implementation ("androidx.compose.material3:material3:1.3.1") // For Material Design components like BottomNavigation
     implementation ("androidx.compose.ui:ui-tooling-preview:1.4.0")
     implementation ("androidx.activity:activity-compose:1.7.0")
 
@@ -56,6 +56,10 @@ dependencies {
 
     // Jetpack Compose Integration
     implementation ("androidx.navigation:navigation-compose:$nav_version")
+
+    // SPlash
+
+    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha06")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
