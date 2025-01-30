@@ -40,10 +40,22 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.espresso.core)
+    val nav_version = "2.8.5"
+    // other
+    implementation ("androidx.compose.ui:ui:1.4.0") // Check for latest version
+    implementation ("androidx.compose.material:material:1.4.0") // For Material Design components like BottomNavigation
+    implementation ("androidx.compose.ui:ui-tooling-preview:1.4.0")
+    implementation ("androidx.activity:activity-compose:1.7.0")
 
     // Images and SVG
 //    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
 //    implementation("io.coil-kt.coil3:coil-svg:3.0.4")
+
+    implementation ("androidx.compose.material:material-icons-extended:1.5.0")
+
+    // Jetpack Compose Integration
+    implementation ("androidx.navigation:navigation-compose:$nav_version")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

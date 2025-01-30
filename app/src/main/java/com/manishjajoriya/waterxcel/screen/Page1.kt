@@ -1,4 +1,4 @@
-package com.manishjajoriya.waterxcel.screens
+package com.manishjajoriya.waterxcel.screen
 
 
 import androidx.compose.foundation.Image
@@ -28,8 +28,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.manishjajoriya.waterxcel.R
+import com.manishjajoriya.waterxcel.ui.theme.SerifFont
 
 
 @Composable
@@ -48,21 +51,22 @@ fun Page1(modifier: Modifier = Modifier, navigateFunction:() -> Unit) {
         ) {
 
             Spacer(modifier = Modifier.height(40.dp))
-            Row {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(R.drawable.delhi_logo),
                     contentDescription = "Delhi Government Logo",
-                    modifier = Modifier.size(140.dp)
+                    modifier = Modifier.size(120.dp)
                 )
 
                 Image(
                     painter = painterResource(R.drawable.viksit_bharat),
-                    contentDescription = "Delhi Government Logo",
-                    modifier = Modifier.size(140.dp)
+                    contentDescription = "Viksit Bharat 2047 Logo",
+                    modifier = Modifier.size(180.dp)
                 )
             }
             Spacer(modifier = Modifier.height(70.dp))
-            Text("Waste Xcel", style = MaterialTheme.typography.titleLarge)
+            Text("Welcome To", style = MaterialTheme.typography.titleMedium.copy(fontFamily = SerifFont))
+            Text("WasteXcel", style = MaterialTheme.typography.titleLarge.copy(fontSize = 28.sp))
             Spacer(modifier = Modifier.height(20.dp))
 
 
@@ -80,9 +84,9 @@ fun Page1(modifier: Modifier = Modifier, navigateFunction:() -> Unit) {
                     Column( modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Filled.Person, contentDescription = "Citizens", modifier = Modifier.size(32.dp))
+                        Icon(Icons.Filled.Person, contentDescription = "CITIZENS", modifier = Modifier.size(32.dp))
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("Citizens", style = MaterialTheme.typography.titleMedium)
+                        Text("CITIZENS", style = MaterialTheme.typography.titleMedium.copy(letterSpacing = 0.4.sp))
                     }
 
                 }
@@ -100,9 +104,9 @@ fun Page1(modifier: Modifier = Modifier, navigateFunction:() -> Unit) {
                     Column( modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Filled.Build, contentDescription = "Citizens", modifier = Modifier.size(32.dp))
+                        Icon(Icons.Filled.Build, contentDescription = "STAFF", modifier = Modifier.size(32.dp))
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("Staff", style = MaterialTheme.typography.titleMedium)
+                        Text("STAFF", style = MaterialTheme.typography.titleMedium.copy(letterSpacing = 0.4.sp))
                     }
                 }
             }
