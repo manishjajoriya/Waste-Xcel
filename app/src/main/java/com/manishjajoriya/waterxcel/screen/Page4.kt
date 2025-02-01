@@ -8,8 +8,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CameraAlt
+import androidx.compose.material.icons.filled.CurrencyExchange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -31,14 +33,13 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
+fun Page4(modifier: Modifier = Modifier, navigateFunction: (String) -> Unit) {
     var menuExpanded by remember { mutableStateOf(false) }
 
     // Menu Items for drop-down
-    val menuItems = listOf("Home", "My Account", "Settings", "Help", "Logout")
+    val menuItems = listOf("Home", "My Account", "Settings","Notification", "Help", "Logout")
 
     // Top App Bar with a dropdown menu for the hamburger button
-
     Column {
         TopAppBar(
             title = {
@@ -69,7 +70,14 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
                     menuItems.forEach { item ->
                         DropdownMenuItem(
                             onClick = {
-                                navigateFunction(item)
+                                // Navigate to the corresponding page
+                                when (item) {
+                                    "Home" -> navigateFunction("home")
+                                    "My Account" -> navigateFunction("myAccount")
+                                    "Settings" -> navigateFunction("settings")
+                                    "Help" -> navigateFunction("help")
+                                    "Logout" -> navigateFunction("logout")
+                                }
                                 menuExpanded = false // Close menu after item click
                             },
                             text = { Text(text = item) }
@@ -78,7 +86,6 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
                 }
             }
         )
-
 
         // Main Content
         Column(modifier = Modifier.fillMaxSize()) {
@@ -98,7 +105,7 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
                     }
                     Box(contentAlignment = Alignment.BottomEnd) {
                         Image(
-                            painter = painterResource(R.drawable.delhi_logo),
+                            painter = painterResource(R.drawable.profile),
                             contentDescription = "Profile Picture",
                             modifier = Modifier
                                 .size(64.dp)
@@ -108,14 +115,17 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
                             onClick = { /* Open Camera */ },
                             modifier = Modifier.size(24.dp)
                         ) {
-                            Icon(Icons.Filled.CameraAlt, contentDescription = "Change Profile Picture")
+                            Icon(
+                                Icons.Filled.CameraAlt,
+                                contentDescription = "Change Profile Picture"
+                            )
                         }
                     }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Credit Tile
+                // Your Credit Card Section
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -125,15 +135,35 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
                     elevation = CardDefaults.cardElevation(4.dp)
                 ) {
                     Box(modifier = Modifier.padding(16.dp)) {
-                        Text("Current Credit: 1000 Points")
+                        Column(modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                text = "Your Credit",
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(bottom = 8.dp)
+                            )
+
+                            Text(
+                                text = "Current Credit: 100 Points",
+                                fontSize = 16.sp,
+                                modifier = Modifier.padding(bottom = 16.dp)
+                            )
+
+                            Button(
+                                onClick = { navigateFunction("Credit") },
+                                modifier = Modifier.align(Alignment.CenterHorizontally),
+                                shape = RoundedCornerShape(8.dp)
+                            ) {
+                                Text(text = "View My Credit")
+                            }
+                        }
                     }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // WasteXcel Services
+                // Redeem Services (unchanged)
                 Column(modifier = Modifier.padding(16.dp)) {
-                    // Title for the section
                     Text(
                         text = "Redeem Services",
                         fontSize = 20.sp,
@@ -141,23 +171,37 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
                         modifier = Modifier.padding(bottom = 12.dp)
                     )
 
-                    // 2x2 Grid of service buttons
-                    val services = listOf("DMRC Metro", "LPG", "Solar Panel", "Electricity Discount")
+                    val services =
+                        listOf("DMRC Metro", "LPG", "Solar Panel", "Electricity Discount")
 
                     Column(modifier = Modifier.fillMaxWidth()) {
                         // First Row
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
                             // First button
                             Button(
-                                onClick = { navigateFunction(services[0]) },
+                                onClick = { },
                                 modifier = Modifier
                                     .weight(1f)
-                                    .height(120.dp)
-                                    .background(Brush.verticalGradient(listOf(GreenPrimary, GreenSecondary)), shape = RoundedCornerShape(12.dp)) // Green gradient background
+                                    .height(100.dp)
+                                    .background(
+                                        Brush.verticalGradient(
+                                            listOf(
+                                                GreenPrimary,
+                                                GreenSecondary
+                                            )
+                                        ), shape = RoundedCornerShape(12.dp)
+                                    )
                                     .padding(4.dp),
                                 shape = RoundedCornerShape(12.dp),
                             ) {
-                                Image(painter = painterResource(R.drawable.delhi_metro) , contentDescription = "Delhi Metro", modifier = Modifier.size(36.dp))
+                                Image(
+                                    painter = painterResource(R.drawable.delhi_metro),
+                                    contentDescription = "Delhi Metro",
+                                    modifier = Modifier.size(36.dp)
+                                )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
                                     text = services[0],
@@ -168,15 +212,26 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
 
                             // Second button
                             Button(
-                                onClick = { navigateFunction(services[1]) },
+                                onClick = { },
                                 modifier = Modifier
                                     .weight(1f)
-                                    .height(120.dp)
-                                    .background(Brush.verticalGradient(listOf(GreenPrimary, GreenSecondary)), shape = RoundedCornerShape(12.dp))
+                                    .height(100.dp)
+                                    .background(
+                                        Brush.verticalGradient(
+                                            listOf(
+                                                GreenPrimary,
+                                                GreenSecondary
+                                            )
+                                        ), shape = RoundedCornerShape(12.dp)
+                                    )
                                     .padding(4.dp),
                                 shape = RoundedCornerShape(12.dp),
                             ) {
-                                Image(painter = painterResource(R.drawable.gas) , contentDescription = "LPG Cylinder", modifier = Modifier.size(48.dp))
+                                Image(
+                                    painter = painterResource(R.drawable.gas),
+                                    contentDescription = "LPG Cylinder",
+                                    modifier = Modifier.size(48.dp)
+                                )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
                                     text = services[1],
@@ -189,18 +244,32 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
                         Spacer(modifier = Modifier.height(8.dp))
 
                         // Second Row
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
                             // Third button
                             Button(
-                                onClick = { navigateFunction(services[2]) },
+                                onClick = { },
                                 modifier = Modifier
                                     .weight(1f)
-                                    .height(120.dp)
-                                    .background(Brush.verticalGradient(listOf(GreenPrimary, GreenSecondary)), shape = RoundedCornerShape(12.dp))
+                                    .height(100.dp)
+                                    .background(
+                                        Brush.verticalGradient(
+                                            listOf(
+                                                GreenPrimary,
+                                                GreenSecondary
+                                            )
+                                        ), shape = RoundedCornerShape(12.dp)
+                                    )
                                     .padding(4.dp),
                                 shape = RoundedCornerShape(12.dp)
                             ) {
-                                Image(painter = painterResource(R.drawable.solar_panel) , contentDescription = "Solar Panel", modifier = Modifier.size(48.dp))
+                                Image(
+                                    painter = painterResource(R.drawable.solar_panel),
+                                    contentDescription = "Solar Panel",
+                                    modifier = Modifier.size(48.dp)
+                                )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
                                     text = services[2],
@@ -211,15 +280,26 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
 
                             // Fourth button
                             Button(
-                                onClick = { navigateFunction(services[3]) },
+                                onClick = { },
                                 modifier = Modifier
                                     .weight(1f)
-                                    .height(120.dp)
-                                    .background(Brush.verticalGradient(listOf(GreenPrimary, GreenSecondary)), shape = RoundedCornerShape(12.dp))
+                                    .height(100.dp)
+                                    .background(
+                                        Brush.verticalGradient(
+                                            listOf(
+                                                GreenPrimary,
+                                                GreenSecondary
+                                            )
+                                        ), shape = RoundedCornerShape(12.dp)
+                                    )
                                     .padding(4.dp),
                                 shape = RoundedCornerShape(12.dp),
                             ) {
-                                Image(painter = painterResource(R.drawable.lightning) , contentDescription = "Electricity Discount", modifier = Modifier.size(28.dp))
+                                Image(
+                                    painter = painterResource(R.drawable.lightning),
+                                    contentDescription = "Electricity Discount",
+                                    modifier = Modifier.size(28.dp)
+                                )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
                                     text = services[3],
@@ -230,19 +310,11 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
                         }
                     }
                 }
-
-                Text(
-                    text = "Track GPS Location",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 12.dp)
-                )
-
                 Button(
                     onClick = { navigateFunction("Track Truck Location") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(120.dp)
+                        .height(100.dp)
                         .padding(horizontal = 16.dp) // Horizontal padding to avoid edge-to-edge
                         .background(
                             Brush.verticalGradient(listOf(GreenPrimary, GreenSecondary)),
@@ -255,7 +327,7 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
                     Image(
                         painter = painterResource(R.drawable.garbage_truck),
                         contentDescription = "Track Truck Location",
-                        modifier = Modifier.size(28.dp)
+                        modifier = Modifier.size(36.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
@@ -265,12 +337,11 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
                     )
                 }
 
-
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Bottom Navigation (full-width and no gap)
+            // Bottom Navigation
             NavigationBar(
                 containerColor = GreenSecondary,
                 modifier = Modifier.fillMaxWidth() // Full width
@@ -290,8 +361,21 @@ fun Page4(modifier: Modifier = Modifier,  navigateFunction: (String) -> Unit) {
                     selected = false,
                     onClick = { navigateFunction("search") }
                 )
+
+                NavigationBarItem(
+                    icon = { Icon(Icons.Filled.CurrencyExchange, contentDescription = "Credit") },
+                    selected = false,
+                    onClick = { navigateFunction("Credit") }
+                )
+
+                NavigationBarItem(
+                    icon = { Icon(Icons.Filled.QuestionMark, contentDescription = "FAQ") },
+                    selected = false,
+                    onClick = { navigateFunction("FAQ") }
+                )
             }
         }
     }
 }
+
 

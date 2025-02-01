@@ -13,6 +13,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.manishjajoriya.waterxcel.screen.Base
+import com.manishjajoriya.waterxcel.screen.CreditPage
+import com.manishjajoriya.waterxcel.screen.MyAccount
 import com.manishjajoriya.waterxcel.screen.Page1
 import com.manishjajoriya.waterxcel.screens.Page2
 import com.manishjajoriya.waterxcel.screens.Page3
@@ -40,11 +42,9 @@ fun NavigationGraph(modifier: Modifier = Modifier) {
     // Define the navigation graph
     NavHost(navController = navController, startDestination = "page1") {
         composable("page1") {
-            // Pass navigation function to Page1
             Page1(modifier = modifier) { navController.navigate("page2") }
         }
         composable("page2") {
-            // You can pass navigateFunction here as well if needed
             Page2(
                 modifier = modifier,
                 navigateFunctionTo4 = { navController.navigate("page4") },
@@ -53,20 +53,22 @@ fun NavigationGraph(modifier: Modifier = Modifier) {
         }
 
         composable("page3") {
-            // You can pass navigateFunction here as well if needed
             Page3(modifier = modifier) { navController.navigate("page4") }
         }
 
         composable("page4") {
             Page4(
                 modifier = modifier,
-                navigateFunction = {}
+                navigateFunction = { page ->
+                    if (page == "Credit") {
+                        navController.navigate("Credit")
+                    }
+                }
             )
         }
 
-        composable("MyAccount") {
-            Base(modifier = Modifier) {  }
+        composable("Credit") {
+            CreditPage(modifier = modifier)  // Make sure this composable is defined and works
         }
     }
-
 }
